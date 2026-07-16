@@ -1,0 +1,32 @@
+managed implementation in class zbp_i_vehicle_njs unique;
+strict ( 2 );
+
+define behavior for ZI_VEHICLE_njs //alias <alias_name>
+persistent table zflt_vehicle_njs
+lock master
+authorization master ( instance )
+//etag master <field_name>
+{
+  create ( authorization : global );
+  update;
+  delete;
+  field ( readonly ) Vehicleuuid;
+   determination calculateLastService
+    on modify { create; update; }
+
+  validation validateServiceDate
+    on save { create; update; }
+  association _MaintLogs { create; }
+}
+
+define behavior for ZI_MAINT_LOG_njs //alias <alias_name>
+persistent table zzflt_maint_log
+lock dependent by _Vehicle
+authorization dependent by _Vehicle
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly ) Loguuid, Vehicleuuid;
+  association _Vehicle;
+}

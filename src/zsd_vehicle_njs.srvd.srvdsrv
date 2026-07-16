@@ -1,0 +1,5 @@
+@EndUserText.label: 'TASK service definition vehicle'
+define service ZSD_vehicle_njs {
+  expose zc_vehicle_njs   as Vehicle;
+  expose ZC_MAINT_LOG_njs as MaintLogs;
+}
